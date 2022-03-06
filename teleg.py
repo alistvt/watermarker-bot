@@ -17,31 +17,31 @@ def handleAll(bot, update):
 	try:
 		userId = update.message.chat_id
 		caption = Caption_Template%(update.message.caption or ' ')#if update.message.caption!=None else ' '
-		if userId in Id_Admins:
-			if update.message.photo:
-				bot.send_chat_action(userId, telegram.ChatAction.UPLOAD_PHOTO)
-				file_id = update.message.photo[-1]
-				newImage = bot.get_file(file_id)
-				newImage.download('files/to_watermark_pic.png')
-				watermark_pic()
-				bot.send_photo(chat_id=userId, photo=open('files/watermarked_pic.png', 'rb'), caption=caption, parse_mode=telegram.ParseMode.HTML)
-			elif update.message.video:
-				bot.send_chat_action(userId, telegram.ChatAction.UPLOAD_VIDEO)
-				file_id = update.message.video
-				newVideo = bot.get_file(file_id)
-				bot.send_message(update.message.chat_id, text='Watermarking')
-				newVideo.download('files/to_watermark_vid.mp4')
-				duration, width, height = watermark_vid()
-				bot.send_video(chat_id=userId, video=open('files/watermarked_vid.mp4', 'rb'), 
-								duration=duration, width=width, height=height, caption=caption, parse_mode=telegram.ParseMode.HTML)
-			elif update.message.animation:
-				bot.send_chat_action(userId, telegram.ChatAction.UPLOAD_VIDEO)
-				file_id = update.message.animation
-				newVideo = bot.get_file(file_id)
-				bot.send_message(update.message.chat_id, text='Watermarking')
-				newVideo.download('files/to_watermark_vid.mp4')
-				watermark_vid()
-				bot.send_animation(chat_id=userId, animation=open('files/watermarked_vid.mp4', 'rb'), caption=caption, parse_mode=telegram.ParseMode.HTML)
+		# if userId in Id_Admins:
+		if update.message.photo:
+			bot.send_chat_action(userId, telegram.ChatAction.UPLOAD_PHOTO)
+			file_id = update.message.photo[-1]
+			newImage = bot.get_file(file_id)
+			newImage.download('files/to_watermark_pic.png')
+			watermark_pic()
+			bot.send_photo(chat_id=userId, photo=open('files/watermarked_pic.png', 'rb'), caption=caption, parse_mode=telegram.ParseMode.HTML)
+		elif update.message.video:
+			bot.send_chat_action(userId, telegram.ChatAction.UPLOAD_VIDEO)
+			file_id = update.message.video
+			newVideo = bot.get_file(file_id)
+			bot.send_message(update.message.chat_id, text='Watermarking')
+			newVideo.download('files/to_watermark_vid.mp4')
+			duration, width, height = watermark_vid()
+			bot.send_video(chat_id=userId, video=open('files/watermarked_vid.mp4', 'rb'), 
+							duration=duration, width=width, height=height, caption=caption, parse_mode=telegram.ParseMode.HTML)
+		elif update.message.animation:
+			bot.send_chat_action(userId, telegram.ChatAction.UPLOAD_VIDEO)
+			file_id = update.message.animation
+			newVideo = bot.get_file(file_id)
+			bot.send_message(update.message.chat_id, text='Watermarking')
+			newVideo.download('files/to_watermark_vid.mp4')
+			watermark_vid()
+			bot.send_animation(chat_id=userId, animation=open('files/watermarked_vid.mp4', 'rb'), caption=caption, parse_mode=telegram.ParseMode.HTML)
 
 	except Exception as e:
 		bot.send_message(update.message.chat_id, text='Error :|')
