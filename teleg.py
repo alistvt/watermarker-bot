@@ -10,9 +10,8 @@ from cv import Id_Admins, Caption_Template
 import cv
 from logoadder import watermark_vid, watermark_pic
 
-logging.basicConfig(filename = 'bot.log', format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.INFO)
 logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.INFO)
-
+logger = logging.getLogger(__name__)
 
 def handleAll(bot, update):
 	try:
